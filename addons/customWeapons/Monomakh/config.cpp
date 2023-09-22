@@ -1,50 +1,160 @@
 class CfgPatches
 {
-	class Harkyn_Monomakh
+	class Monomakh
 	{
 		units[] = {};
-		weapons[] = {"hrn_MonomakhSniper"};
+		weapons[] = {"Monomakh"};
+		magazines[] = {"tb_145x115mm_5rndmag","tb_145x115mm_5rndmag_Tracer"};
+		ammo[] = {"tb_145x115mm_API","tb_145x115mm_Tracer"};
 		requiredVersion = 1.4;
-		requiredAddons[] = {"A3_Weapons_F_LongRangeRifles_GM6"};
+		requiredAddons[] = {"A3_Data_F_Decade_Loadorder","cba_jr","ace_main"};
 		version = 1;
 	};
 };
 
-class cfgweapon {
-	class srifle_GM6_F;
+class cfgAmmo 
+{
+	class BulletBase;
+	class tb_145x115mm_API: BulletBase
+	{
+		ACE_caliber = 14.88;
+		ACE_bulletLength = 41.1;
+		ACE_bulletMass = 64.4;
+		ACE_standardAtmosphere = "ASM";
+		ACE_muzzleVelocityVariationSD = 0.35;
+		ACE_velocityBoundaries[] = {};
+		ACE_ammoTempMuzzleVelocityShifts[] = {-26.55,-25.47,-22.85,-20.12,-16.98,-12.8,-7.64,-1.53,5.96,15.17,26.19};
+		ACE_dragModel = 7;
+		ACE_ballisticCoefficients[] = {0.408};
+		ACE_muzzleVelocities[] = {1000};
+		ACE_barrelLengths[] = {1000};
+		caliber = 2;
+		hit = 30;
+		airFriction = -0.001;
+		typicalSpeed = 1090;
+		scope = 2;
+	};
+	class tb_145x115mm_Tracer: BulletBase
+	{
+		ACE_caliber = 14.88;
+		ACE_bulletLength = 41.1;
+		ACE_bulletMass = 64.4;
+		ACE_standardAtmosphere = "ASM";
+		ACE_muzzleVelocityVariationSD = 0.35;
+		ACE_velocityBoundaries[] = {};
+		ACE_ammoTempMuzzleVelocityShifts[] = {-26.55,-25.47,-22.85,-20.12,-16.98,-12.8,-7.64,-1.53,5.96,15.17,26.19};
+		ACE_dragModel = 7;
+		ACE_ballisticCoefficients[] = {0.408};
+		ACE_muzzleVelocities[] = {1090};
+		ACE_barrelLengths[] = {1000};
+		caliber = 2;
+		hit = 30;
+		model = "\A3\Weapons_f\Data\bullettracer\tracer_green";
+		airFriction = -0.001;
+		typicalSpeed = 1090;
+		scope = 2;
+	};
+};
 
-	class hrn_MonomakhSniper : srifle_GM6_F {
+class cfgMagazines 
+{
+	class CA_Magazine;
+    class tb_145x115mm_5rndmag: CA_Magazine
+	{
 		author = "Harkyn";
 		scope = 2;
-		displayName = "[HRN] Monomakh Anti-Material Rifle";
-		descriptionShort = "Monomakh Anti-Material Rifle";
+		displayName = "14.5x114 5rnd API";
+		count = 5;
+		ammo = "tb_145x115mm_API";
+		mass = 14;
+		initSpeed = 945;
+		descriptionShort = "Caliber: 14.5x114mm Russian<br />Rounds: 6";
+		model = "\A3\weapons_F\ammo\mag_univ.p3d";
+		modelSpecialIsProxy = 1;
+		modelSpecial = "\HRN_customWeapons\Monomakh\model\Monomakh_Arma3.p3d";
+
+    };
+	class tb_145x115mm_5rndmag_Tracer: CA_Magazine
+	{
+		author = "Harkyn";
+		scope = 2;
+		displayName = "14.5x114 5rnd API-T";
+		count = 5;
+		ammo = "tb_145x115mm_Tracer";
+		tracersEvery = 0;
+		mass = 14;
+		initSpeed = 945;
+		descriptionShort = "Caliber: 14.5x114mm Russian<br />Rounds: 6";
+		model = "\A3\weapons_F\ammo\mag_univ.p3d";
+		modelSpecialIsProxy = 1;
+		modelSpecial = "\HRN_customWeapons\Monomakh\model\145x114_FMJ_Magazine.p3d";
+
+    };
+};
+class Mode_SemiAuto;
+class WeaponSlotsInfo;
+class SlotInfo;
+class asdg_OpticRail;
+class MuzzleSlot;
+class PointerSlot;
+class UnderBarrelSlot;
+class Single;
+class cfgweapons 
+{
+	class slotInfo;
+    class CowsSlot: slotInfo
+    {
+        linkProxy= "\A3\data_f\proxies\weapon_slots\TOP";
+        displayName = "$STR_A3_CowsSlot0";
+    };
+	class Rifle_Base_F;
+	class Monomakh : Rifle_Base_F
+	{	
+		author = "Harkyn";
+		scope = 2;
+		recoil = "recoil_gm6";
+		displayName = "Monomakh Anti-Material Rifle";
+		descriptionShort = "14.5x114mm Anti Material Rifle made by SnipeX in Ukraine.";
 		model = "\HRN_customWeapons\Monomakh\model\Monomakh_Arma3.p3d";
-		handAnim[] = {"OFP2_ManSkeleton"};
+		scopeArsenal = 2;
+		modes[] = {"Single"};
+		magazines[] = {"tb_145x115mm_5rndmag","tb_145x115mm_5rndmag_Tracer"};
+		reloadMagazineSound[] = {"A3\Sounds_F\arsenal\weapons\LongRangeRifles\GM6_Lynx\GM6_reload",1,1,10};
+		handanim[] = {"OFP2_ManSkeleton","\A3\Weapons_F\LongRangeRifles\GM6\Data\Anim\GM6.rtm"};
 		selectionFireAnim = "muzzleFlash";
 		reloadAction = "GestureReloadMX";
+		baseWeapon = "Monomakh";
+		ACE_barrelLength = 1000.0;
+		ACE_barrelTwist = 455;
+		ACE_twistDirection = 1;
+		weaponSoundEffect = "";
+		sound[]={"\Ukrainian SnipeX Monomakh\sound\Monomakh_Firing.wav",1,1};
+		zeroingSound[] = {"A3\Sounds_F\arsenal\sfx\shared\zeroing_knob_tick_metal",0.316228,1,5};
+		ACE_overheating_closedBolt = 1;
+		magazineWell[]={};
+		simulation="Weapon";
 		magazineReloadSwitchPhase = 0.48;
 		initSpeed = -1;
 		htMin = 11;
-		htMax = 730;
-		inertia = 0.6;
+		htMax = 1400;
+		inertia = 1;
 		aimTransitionSpeed = 1;
-		dexterity = 1.4;
-		maxRecoilSway = 0.1;
+		dexterity = 0.3;
+		maxRecoilSway = 0.5;
 		swayDecaySpeed = 1.25;
-		maxZeroing = 1200;
-		drySound[] = {"A3\Sounds_F\arsenal\weapons\Rifles\MX\dry_Mx",0.562341,1,10};
-		changeFiremodeSound[] = {"A3\Sounds_F\arsenal\weapons\Rifles\Katiba\firemode_katiba",0.251189,1,5};
+		maxZeroing = 2500;
 		fireLightDuration = 0.05;
 		fireLightIntensity = 0.5;
 		fireLightDiffuse[] = {1,0,0};
 		fireLightAmbient[] = {0,0,0};
+		class Single: Mode_SemiAuto
+		{
+			reloadTime = 0.1;
+		};
 		class WeaponSlotsInfo: WeaponSlotsInfo
 		{
 			class CowsSlot: CowsSlot
 			{
-				linkProxy = "\A3\data_f\proxies\weapon_slots\TOP";
-				iconPosition[] = {0.5,0.4};
-				iconScale = 0.15;
 				compatibleItems[] = {"optic_DMS","optic_Nightstalker"};
 			};
 			class MuzzleSlot: MuzzleSlot
@@ -63,115 +173,40 @@ class cfgweapon {
 		};
 	};
 };
-
-/*
-cartridgepos = "nabojnicestart";
-cartridgevel = "nabojniceend";
-handanim[] ={"OFP2_ManSkeleton","\A3\Weapons_F\LongRangeRifles\GM6\Data\Anim\GM6.rtm"};
-model = """\Ukrainian SnipeX Monomakh\addons\Monomakh_Arma3.p3d"""; //location of the P3D model
-picture = "\A3\Weapons_F\LongRangeRifles\GM6\Data\UI\gear_gm6_X_CA.paa";
-modes[] = {"Single"}; //Firing Mode
-muzzleend = "konec hlavne"; //Muzzle end
-muzzlepos = "usti hlavne"; //Muzzle start pos
-//The default/empty UI Icon for the gun in the
-//Inventory screen, I’ll go over making this later
-reloadaction = "GestureReloadEBR"; 
-
-class WeaponSlotsInfo {
-allowedslots[] = {901};
-mass = 25;
-class MuzzleSlot {
-compatibleitems[] = {"muzzle_snds_L"};
-displayname = "Muzzle Slot";
-linkproxy = "\A3\data_f\proxies\weapon_slots\MUZZLE";
-scope = 0;
+class CfgSoundCurves
+{
+	class InverseSquare1Curve
+	{
+		points[] = {{0,0.9751},{0.1,0.6332},{0.2,0.4307},{0.3,0.3009},{0.4,0.2128},{0.5,0.1503},{0.6,0.1043},{0.7,0.0695},{0.8,0.0426},{0.9,0.0213},{1,0.0041}};
+	};
 };
-class CowsSlot {
-compatibleitems[] = {"optic_Arco", "optic_aco", "optic_ACO_grn",
-"optic_hamr", "optic_Holosight"};
-displayname = "Optics Slot";
-linkproxy = "\A3\data_f\proxies\weapon_slots\TOP";
-scope = 2;
-};
-class PointerSlot {};
-};
-class cfgAmmo{
-ammo = "B_127x108_Ball";
-author = "$STR_A3_Bohemia_Interactive";
-count = 5;
-descriptionShort = "$STR_A3_CfgMagazines_5Rnd_127x108_Mag1";
-displayName = "$STR_A3_CfgMagazines_5Rnd_127x108_Mag0";
-initSpeed = 820;
-mass = 16;
-picture = "\A3\Weapons_F_EPA\Data\ui\M_5rnd_127x108_ball_CA.paa";
-scope = 2;}
-class cfgMagazine
-    class 20Rnd_762x51_Mag;
-    class 145x114_mag: 20Rnd_762x51_Mag
-    {
-        scope=2;
-    scopeArsenal=2;
-    scopeCurator=2;
-    displayName="14.5x114 FMJ Ammo";
-    ammo="14.5x114 FMJ Ammo";
-    count=5;
-    tracersEvery=1;
-    descriptionShort=""; 
-        mass="15";
-    };
-};
-		author = "Harkyn";
-		scope = 0;
-		displayName = "Monomakh Anti-Material Rifle";
-		descriptionShort = "Monomakh Anti-Material Rifle";
-		model = "\Ukrainian SnipeX Monomakh\"\addons\Monomakh_Arma3.p3d"";
-		handAnim[] = {"OFP2_ManSkeleton"};
-		selectionFireAnim = "muzzleFlash";
-		reloadAction = "GestureReloadMX";
-		magazineWell[]=
+class cfgSoundShaders
+{
+	class Monomakh_closure_SoundShader
+	{
+		samples[] ={{ "P:\Ukrainian SnipeX Monomakh\sound\Monomakh_Firing.wav", 1 }};
+		volume = 0.5;
+		Limitation = 0;
+		range = 10;
+		rangeCurve[] =
 		{
-		};	
-		magazines[] = {"Magazine"};
-		magazineReloadSwitchPhase = 0.48;
-		initSpeed = -1;
-		htMin = 11;
-		htMax = 730;
-		inertia = 0.6;
-		aimTransitionSpeed = 1;
-		dexterity = 1.4;
-		maxRecoilSway = 0.1;
-		swayDecaySpeed = 1.25;
-		maxZeroing = 1200;
-		drySound[] = {"A3\Sounds_F\arsenal\weapons\Rifles\MX\dry_Mx",0.562341,1,10};
-		changeFiremodeSound[] = {"A3\Sounds_F\arsenal\weapons\Rifles\Katiba\firemode_katiba",0.251189,1,5};
-		fireLightDuration = 0.05;
-		fireLightIntensity = 0.5;
-		fireLightDiffuse[] = {1,0,0};
-		fireLightAmbient[] = {0,0,0};
-		class WeaponSlotsInfo: WeaponSlotsInfo
-		{
-			class CowsSlot: CowsSlot
-			{
-				linkProxy = "\A3\data_f\proxies\weapon_slots\TOP";
-				iconPosition[] = {0.5,0.4};
-				iconScale = 0.15;
-				compatibleItems[] = {"optic_DMS","optic_Nightstalker"};
-			};
-			class MuzzleSlot: MuzzleSlot
-			{
-				compatibleItems[] = {};
-			};
-			class UnderBarrelSlot{};
-			class PointerSlot: PointerSlot
-			{
-				linkProxy = "\A3\data_f\proxies\weapon_slots\SIDE";
-				iconPosition[] = {0.2,0.45};
-				iconScale = 0.25;
-				compatibleItems[] = {"acc_flashlight","acc_pointer_IR"};
-			};
-			mass = 120;
+			{ 0, 1 },
+			{ 5, 0.7 },
+			{ 10, 0 }
 		};
-		modes[] = {"Single"};
-		class Single: Mode_SemiAuto
-        };
-*/
+		class Monomakh_closeShot_SoundShader
+	{
+		samples[] ={{ "P:\Ukrainian SnipeX Monomakh\sound\Monomakh_Firing.wav", 1 }};
+		volume = 1;
+		Limitation = 0;
+		range = 50;
+		Frequency = 1;
+		rangeCurve[] =
+		{
+			{ 0, 1 },
+			{ 5, 0.7 },
+			{ 10, 0 }
+		};
+	};
+};
+};

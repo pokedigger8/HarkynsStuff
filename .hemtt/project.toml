@@ -1,0 +1,26 @@
+name = "Harkyns Stuff"
+prefix = "HRN"
+author = "Harkyn & Poke"
+
+[files]
+include = [
+    "*.dll",
+    "*.so",
+    "mod.cpp",
+    "README*.md",  # Translated READMEs get moved to root in a hook (virtual file system)
+    "AUTHORS.txt",
+    "LICENSE"
+]
+
+[version]
+major = 0
+minor = 1
+patch = 0
+git_hash = 0
+
+[hemtt.config]
+preset = "Hemtt"
+
+[hemtt.release]
+sign = true # Default: true
+archive = false # Default: true
